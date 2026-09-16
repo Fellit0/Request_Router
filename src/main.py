@@ -35,3 +35,35 @@ def read_file(file):
         return read_csv(file)
     raise ValueError()
     
+def normalize_text(dictionary):
+    dictionary['text'] = dictionary['text'].lower().replace('ё', 'е')
+    return dictionary
+
+def category(dictionary):
+    record = normalize_text(dictionary)
+    words_access = ['войти', 'пароль', 'нет доступа']
+    words_billing = ['оплата', 'счет', 'тариф', 'спис']
+    words_bug = ['ошибка', 'не работает', 'падает', 'недоступен']
+    if any(word in record['text'] for word in words_access):
+        return 'access'
+    if any(word in record['text'] for word in words_billing):
+        return 'billing'
+    if any(word in record['text'] for word in words_bug):
+        return 'bug'
+    return 'other'
+
+def priority(dictionary):
+    record = normalize_text(dictionary)
+    words_high = ['срочно', 'критично', 'недоступен всем']
+    current_category = category(record)
+    if any(word in record['text'] for word in words_high):
+        return 'high'
+    if current_category == 'access' or current_category == 'bug': 
+        return 'medium'
+    return 'low'
+
+def routing(dictionary):
+    new_dict = {'id' : dictionary['id'],
+                 'category' : category(dictionary),
+                   'priority' : priority(dictionary)}
+    return new_dict
