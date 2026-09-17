@@ -67,3 +67,9 @@ def routing(dictionary):
                  'category' : category(dictionary),
                    'priority' : priority(dictionary)}
     return new_dict
+
+def result_record(file):
+    results = []
+    for step in read_file(file):
+        results.append(routing(step))
+    return results
