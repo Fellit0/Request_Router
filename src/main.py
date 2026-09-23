@@ -87,12 +87,12 @@ if __name__ == '__main__':
             json.dump(a, f, ensure_ascii=False, indent=4)
 
     except ValueError:
-        print("в записи отсутствует или пусто поле id либо text")
+        print("Ошибка: в записи отсутствует или пусто поле id либо text")
         exit(1)
     except FileNotFoundError:
-        print('путь к входному файлу не существует')
+        print('Ошибка: путь к входному файлу не существует')
         exit(1)
     except json.JSONDecodeError:
-        print('JSON синтаксически поврежден')
+        print('Ошибка: JSON синтаксически поврежден')
         exit(1)
     
