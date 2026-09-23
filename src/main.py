@@ -86,7 +86,7 @@ if __name__ == '__main__':
 
             json.dump(a, f, ensure_ascii=False, indent=4)
 
-    except ValueError:
+    except (ValueError, KeyError):
         print("Ошибка: в записи отсутствует или пусто поле id либо text")
         exit(1)
     except FileNotFoundError:
